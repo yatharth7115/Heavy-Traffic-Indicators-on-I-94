@@ -2,6 +2,8 @@
 
 A reproducible, descriptive study of hourly **westbound** traffic recorded at a Minnesota Department of Transportation station on Interstate 94 between Minneapolis and St. Paul. The observations span October 2012 through September 2018. This project identifies patterns in the historical data; it does not predict congestion or establish causes.
 
+**Interactive website:** [I-94 Traffic Instrument](https://yatharth7115.github.io/Heavy-Traffic-Indicators-on-I-94/)
+
 ![Mean traffic by hour on weekdays and weekends](results/hourly_patterns.png)
 
 ## Key findings

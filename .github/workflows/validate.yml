@@ -17,4 +17,4 @@ jobs:
       - run: python scripts/download_data.py
       - run: python scripts/build_results.py
       - name: Check generated results
-        run: git diff --exit-code -- 'results/*.csv' 'results/*.json'
+        run: git diff --exit-code -- 'results/*.csv' 'results/*.json' docs/data.json

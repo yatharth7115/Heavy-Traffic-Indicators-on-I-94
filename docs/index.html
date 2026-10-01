@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0f">
+  <meta name="description" content="Explore verified hourly patterns in historical westbound I-94 traffic near Minneapolis, Minnesota.">
+  <title>I-94 / Traffic Instrument</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#patterns">Skip to the traffic instrument</a>
+  <aside class="side-rail" aria-hidden="true"><span class="rail-code">I<br>9<br>4</span><span class="rail-track"></span><span class="rail-bottom">WB / MN</span></aside>
+  <div class="page-shell">
+    <header class="masthead"><a href="#top" class="masthead-brand" aria-label="I-94 Traffic Instrument, top of page"><span class="logo-slash"></span><span>INTERSTATE<br>INSTRUMENT</span></a><nav aria-label="Main navigation"><a href="#patterns">Instrument</a><a href="#calendar">Calendar</a><a href="#method">Field notes</a></nav><a class="repo-link" href="https://github.com/yatharth7115/Heavy-Traffic-Indicators-on-I-94">PROJECT SOURCE <span aria-hidden="true">↗</span></a></header>
+    <main id="top">
+      <section id="patterns" class="instrument-section" aria-labelledby="page-title">
+        <div class="instrument-topline"><span><b class="pulse" aria-hidden="true"></b> ARCHIVE / ACTIVE VIEW</span><span>MINNEAPOLIS TO ST. PAUL · WESTBOUND</span><span>DATA PERIOD / 2012 TO 2018</span></div>
+        <div class="title-row"><div><p class="serial">TRAFFIC STUDY / 001</p><h1 id="page-title">I-94 <span>TRAFFIC<br>INSTRUMENT</span></h1></div><p>Historical volume at one westbound measurement station. Move through the day to see how the road changes hour by hour.</p></div>
+        <div class="console">
+          <div class="console-toolbar"><div class="console-id"><span class="screw" aria-hidden="true"></span><span>HOURLY VOLUME / OBSERVED MEAN</span></div><div class="day-switch" role="group" aria-label="Select day type"><button type="button" class="active" data-day="Weekday" aria-pressed="true">WEEKDAY</button><button type="button" data-day="Weekend" aria-pressed="false">WEEKEND</button></div><span class="console-status">FIG 01 / 24H</span></div>
+          <div class="console-body"><div class="readout"><span class="readout-label">SELECTED HOUR <i class="readout-led" aria-hidden="true"></i></span><strong id="selected-hour">16:00</strong><span class="readout-rule"></span><span class="readout-label">MEAN VOLUME</span><strong id="selected-value">6,241</strong><small id="selected-unit">VEHICLES / OBSERVED HOUR</small><div class="readout-bottom">WESTBOUND <span>MN / I-94</span></div></div><div class="graph-module"><div class="graph-top"><span>VOLUME TRACE</span><span>0 TO 7,000 VEHICLES</span></div><div class="chart-wrap"><svg id="hour-chart" viewBox="0 0 1000 320" role="img" aria-labelledby="chart-title chart-desc" preserveAspectRatio="none"><title id="chart-title">Hourly traffic volume</title><desc id="chart-desc">Interactive chart of mean traffic for each hour on weekdays or weekends.</desc></svg></div><div class="chart-axis" aria-hidden="true"><span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>23</span></div><div class="slider-bed"><label for="hour-slider">HOUR SELECTOR <span>DRAG TO SCAN</span></label><input id="hour-slider" type="range" min="0" max="23" value="16" aria-label="Hour of day"></div></div></div>
+          <div class="console-footer"><span class="screw" aria-hidden="true"></span><p><strong id="insight-title">16:00 on weekdays</strong><span id="insight-copy">This observed hour averages 6,241 vehicles in the historical dataset.</span></p><span class="console-footer-code">LOCAL CLOCK / NO LIVE FEED</span></div>
+        </div>
+        <div class="metric-deck" aria-label="Dataset summary"><article><span class="metric-no">01 / SOURCE ROWS</span><strong>48,204</strong><p>Records in the original UCI file</p></article><article><span class="metric-no">02 / UNIQUE HOURS</span><strong>40,575</strong><p>Hours used for temporal analysis</p></article><article><span class="metric-no">03 / WEEKDAY MEAN</span><strong>3,557</strong><p>Vehicles per observed hour</p></article><article><span class="metric-no">04 / WEEKEND MEAN</span><strong>2,624</strong><p>Vehicles per observed hour</p></article></div>
+      </section>
+
+      <section id="calendar" class="calendar-section" aria-labelledby="calendar-title"><div class="section-head"><span>MODULE / 02</span><span>SEASONAL PROFILE</span></div><div class="calendar-title"><div><p class="serial">TWELVE MONTHS / ONE STATION</p><h2 id="calendar-title">THE ANNUAL<br><span>CYCLE.</span></h2></div><p>Month-to-month averages move within a narrower band than the daily commute pattern. Coverage is uneven, so read this as a historical comparison rather than a seasonal forecast.</p></div><div class="calendar-machine"><div class="range-panel"><div><span>LOWEST MONTHLY MEAN</span><strong>DEC <i>3,040</i></strong></div><div><span>HIGHEST MONTHLY MEAN</span><strong>AUG <i>3,430</i></strong></div><p>MEAN VEHICLES PER OBSERVED HOUR</p></div><div class="month-area"><div class="month-head"><span>MONTHLY VOLUME / JAN TO DEC</span><span>FIG 02</span></div><div class="month-chart" id="month-chart" role="img" aria-label="Monthly mean traffic volume bar chart"></div></div></div></section>
+
+      <section id="method" class="method-section" aria-labelledby="method-title"><div class="section-head"><span>MODULE / 03</span><span>DATA INTEGRITY</span></div><div class="method-grid"><div class="method-intro"><p class="serial">FIELD NOTES / READ BEFORE INTERPRETING</p><h2 id="method-title">BUILT FOR<br><span>HONEST READINGS.</span></h2><p>This instrument shows historical patterns, not live traffic or predictions. It represents one direction at one location.</p><a href="https://github.com/yatharth7115/Heavy-Traffic-Indicators-on-I-94" class="source-button">OPEN REPRODUCIBLE ANALYSIS <span aria-hidden="true">↗</span></a></div><div class="note-stack"><article><span>01 / INGEST</span><h3>Official source</h3><p>The UCI dataset covers October 2012 to September 2018 and contains 48,204 rows.</p></article><article><span>02 / NORMALIZE</span><h3>One traffic count per hour</h3><p>7,629 extra rows repeat timestamps with other weather descriptions. Their traffic values agree; each hour is counted once in temporal summaries.</p></article><article><span>03 / INTERPRET</span><h3>Limits stay visible</h3><p>Missing hours, unequal year coverage, holidays, and overlapping weather labels can shape comparisons. No causal weather claim is made.</p></article></div></div></section>
+    </main>
+    <footer><span>I-94 / TRAFFIC INSTRUMENT</span><div><a href="https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume">UCI DATASET</a><a href="https://github.com/yatharth7115/Heavy-Traffic-Indicators-on-I-94">SOURCE CODE</a></div><span>HISTORICAL WESTBOUND VOLUME · MN</span></footer>
+  </div>
+</body>
+</html>
