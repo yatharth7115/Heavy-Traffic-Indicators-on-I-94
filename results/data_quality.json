@@ -1,0 +1,7 @@
+{
+  "raw_rows": 48204,
+  "unique_hours": 40575,
+  "duplicate_weather_rows": 7629,
+  "first_timestamp": "2012-10-02 09:00:00",
+  "last_timestamp": "2018-09-30 23:00:00"
+}
