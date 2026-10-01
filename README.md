@@ -1,85 +1,57 @@
-# Heavy Traffic Indicators on I-94 🚗🚦
+# Heavy Traffic Indicators on I-94
 
-> An analysis of the Metro Interstate Traffic Volume dataset to uncover the primary factors causing heavy traffic on the I-94 westbound.
+A reproducible, descriptive study of hourly **westbound** traffic recorded at a Minnesota Department of Transportation station on Interstate 94 between Minneapolis and St. Paul. The observations span October 2012 through September 2018. This project identifies patterns in the historical data; it does not predict congestion or establish causes.
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Libraries](https://img.shields.io/badge/Libraries-Pandas%20%7C%20Matplotlib%20%7C%20Seaborn-orange.svg)
+![Mean traffic by hour on weekdays and weekends](results/hourly_patterns.png)
 
----
+## Key findings
 
-## 🧠 About The Project
+| Finding | Result |
+| --- | ---: |
+| Distinct hourly observations | 40,575 |
+| Additional rows with the same timestamp and traffic count | 7,629 |
+| Mean weekday traffic | 3,557 vehicles per observed hour |
+| Mean weekend traffic | 2,624 vehicles per observed hour |
+| Highest weekday hourly mean | 6,241 vehicles at 16:00 |
+| Second weekday peak | 6,061 vehicles at 07:00 |
 
-This project performs an in-depth exploratory data analysis (EDA) on the "Metro Interstate Traffic Volume" dataset. The primary goal is to identify and visualize the key indicators of heavy traffic. By examining temporal patterns, we can determine when the I-94 is most likely to be congested.
+The weekday mean is about **36% higher** than the weekend mean. Weekday traffic has two pronounced peaks around 07:00 and 16:00; weekends have a broader midday plateau. These are averages across the available years and hours, not forecasts for a specific day.
 
-### 📊 Key Findings & Analysis
+![Mean traffic by month](results/monthly_patterns.png)
 
-The analysis reveals strong correlations between traffic volume and time-related features:
+Monthly averages range from about 3,040 vehicles per observed hour in December to 3,430 in August. This comparison is descriptive: the dataset does not cover every hour uniformly across months or years. Weather labels can also overlap at the same timestamp, so this project does not claim that rain, snow, or temperature caused a particular traffic change.
 
-* **Time of Day:** Traffic peaks during morning (6-8 AM) and evening (3-6 PM) rush hours on business days.
-* **Day of the Week:** Weekdays experience significantly higher traffic volume compared to weekends.
-* **Monthly/Seasonal Trends:** Traffic volume tends to be lower during the winter months (November-February) and higher during the summer and autumn.
+## Reproduce the analysis
 
----
+Python 3.11 or newer is recommended.
 
-## 💾 Dataset
+```bash
+python -m venv .venv
+python -m pip install -r requirements.txt
+python scripts/download_data.py
+python scripts/build_results.py
+python -m unittest discover -s tests -v
+```
 
-The analysis is based on the **Metro Interstate Traffic Volume Dataset** from the UCI Machine Learning Repository. It contains hourly westbound traffic volume data for the I-94 interstate highway near Minneapolis-St. Paul, MN, from 2012 to 2018.
+The download script retrieves the original CSV from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/492/metro+interstate+traffic+volume) into the ignored `data/` directory. Generated CSV tables, charts, and quality metadata are committed in [`results/`](results/). The [`notebook`](notebooks/TrafficAnalysis.ipynb) walks through the same analysis interactively.
 
-* **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Metro+Interstate+Traffic+Volume)
+## Project structure
 
----
+```text
+notebooks/TrafficAnalysis.ipynb    Guided analysis
+scripts/download_data.py           Fetch the source dataset
+scripts/build_results.py           Rebuild tables and charts
+src/traffic_analysis.py            Loading, validation, aggregation
+results/                           Published data and figures
+tests/                             Checks for deduplication and validation
+```
 
-## 🛠️ Tools & Libraries
+## Methods and limits
 
-This project is built using Python and the following core data science libraries:
+The source has 48,204 rows but only 40,575 distinct timestamps. Some hours have multiple weather descriptions; they always share the same traffic count. To avoid giving those hours extra weight, temporal summaries retain one row per timestamp. Means are computed over **observed hours**, not every possible hour in the date span. `date_time` is used as the dataset's local clock time. Missing hours, daylight saving time, changing traffic conditions, holidays, and uneven year coverage can all affect comparisons. The station measures one direction at one location, so results should not be generalized to all I-94 traffic.
 
-* **[Pandas](https://pandas.pydata.org/):** For data manipulation, cleaning, and analysis.
-* **[Matplotlib](https://matplotlib.org/):** For creating static and interactive visualizations.
-* **[Seaborn](https://seaborn.pydata.org/):** For generating beautiful and informative statistical graphics.
+The original hand-written impact table was removed because its claims were not backed by calculations. The computed tables in `results/` replace it. Weather impact and causal conclusions would require additional modeling and controls.
 
----
+## Data credit
 
-## 🚀 Getting Started
-
-Follow these instructions to get a copy of the project up and running on your local machine for analysis and development purposes.
-
-### Prerequisites
-
-* Python 3.8 or higher
-* Jupyter Notebook or JupyterLab
-
-### Installation
-
-1.  **Clone the repository:**
-    ```sh
-    git clone [https://github.com/yatharth7115/Heavy-Traffic-Indicators-on-I-94.git](https://github.com/yatharth7115/Heavy-Traffic-Indicators-on-I-94.git)
-    cd Heavy-Traffic-Indicators-on-I-94
-    ```
-2.  **Create and activate a virtual environment (Recommended):**
-    ```sh
-    # For macOS & Linux
-    python3 -m venv venv
-    source venv/bin/activate
-
-    # For Windows
-    python -m venv venv
-    .\venv\Scripts\activate
-    ```
-3.  **Install the required dependencies:**
-    *If a `requirements.txt` file is available:*
-    ```sh
-    pip install -r requirements.txt
-    ```
-    *Otherwise, install manually:*
-    ```sh
-    pip install pandas matplotlib seaborn jupyter
-    ```
-
----
-
-## ▶️ How to Run the Analysis
-
-Launch the Jupyter Notebook to view and run the step-by-step analysis:
-
-```sh
-jupyter notebook "Heavy Traffic Indicators on I-94.ipynb"
+John Hogue, *Metro Interstate Traffic Volume*, UCI Machine Learning Repository, 2019. [DOI: 10.24432/C5X60B](https://doi.org/10.24432/C5X60B). The source dataset is published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This repository downloads the data for reproducibility and does not commit the raw CSV.
