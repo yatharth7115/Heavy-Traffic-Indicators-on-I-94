@@ -34,6 +34,9 @@ def main() -> None:
     for filename, table in tables.items():
         table.to_csv(output / filename, index=False)
     (output / "data_quality.json").write_text(json.dumps(quality, indent=2) + "\n", encoding="utf-8")
+    site_data = {"hourly": tables["hourly_by_day_type.csv"].to_dict(orient="records"),
+                 "monthly": tables["monthly.csv"].to_dict(orient="records")}
+    (ROOT / "docs" / "data.json").write_text(json.dumps(site_data, separators=(",", ":")) + "\n", encoding="utf-8")
 
     plt.rcParams.update({"font.family": "DejaVu Sans", "axes.spines.top": False, "axes.spines.right": False})
     fig, ax = plt.subplots(figsize=(10, 5.2))
@@ -55,7 +58,7 @@ def main() -> None:
     ax.grid(axis="y", alpha=0.2)
     ax.set_axisbelow(True)
     save_chart(fig, "monthly_patterns.png")
-    print(f"Wrote {len(tables)} tables, 2 charts, and data quality metadata to {output}")
+    print(f"Wrote {len(tables)} tables, 2 charts, site data, and quality metadata")
 
 
 if __name__ == "__main__":
